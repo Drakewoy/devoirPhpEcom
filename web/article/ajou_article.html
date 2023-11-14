@@ -11,11 +11,12 @@
     <fieldset>
 
         <legend>Ajouter Un Article</legend>
-        <form action="../controlleur/articleServeur.php?action=enregistrer" method="post">
+        <form action="http://localhost/programs/devoirPhpEcom/web/controlleur/articleServeur.php" method="post">
+            <input type="hidden" name="action" value="enregistrer">
             <label for="nom"></label>
-            <input type="text" name="nom" id="nom">
+            <input type="text" name="nom" id="nom"><br><br>
             <label for="description"></label>
-            <textarea name="description" id="description" cols="30" rows="10"></textarea>
+            <textarea name="description" id="description" cols="30" rows="10"></textarea><br><br>
             <label for="prix"></label>
             <input type="text" name="prix" id="prix" >
             <!-- button -->

@@ -11,9 +11,14 @@
     <div class="conteneur">
         <div class="vendeurBox">
             <div class="menu"></div>
-            <div class="contenu"></div>
+            <div class="contenu">
+
+            </div>
         </div>
     </div>
+   <?php
+   include('../partiel/footer.html');
+   ?>
 </body>
 
 </html>
