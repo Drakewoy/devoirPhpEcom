@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enregistrement D'achats</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Enregistrer Un achat</legend>
+            <form action="../controlleur/achatServeur.php?enregistrer" method="post">
+            <label for="id_clients">Id client</label>
+            <input type="number" name="id_clients"><br><br>
+            <label for="id_articles">Id article</label>
+            <input type="number" name="id_articles"><br><br>
+            <label for="quantite">Quantite</label>
+            <input type="number" name="quantite"><br><br>
+            <label for="date">Date</label>
+            <input type="date" name="date"><br><br>
+            <input type = "submit"  value="Enregistrer" >
+            </form>
+            
+        </fieldset>
+</body>
+</html>
