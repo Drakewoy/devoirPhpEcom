@@ -20,10 +20,12 @@
             session_start();
             if (isset($_SESSION['listAtircle']) && !empty($_SESSION['listAtircle'])) {
                 foreach ($_SESSION['listAtircle'] as $row) {
+                    echo " <tr>";
                     echo "<td>".$row['reference']."</td>";
                     echo "<td>".$row['nom']."</td>";
                     echo "<td>".$row['description']."</td>";
                     echo "<td>".$row['prix']."</td>";
+                    echo " </tr>";
                 }
             }
             ?>

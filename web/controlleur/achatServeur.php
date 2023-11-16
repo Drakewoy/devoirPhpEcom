@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (isset($_GET['page']) && isset($_GET['dir'])) {
+    $page = $_GET['page'];
+    $dir = $_GET['dir'];
+}
 $id_clients = $_POST['id_clients'];
 $id_articles = $_POST['id_articles'];
 $quantite = $_POST['quantite'];
@@ -10,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     $action = $_POST['action'];
     switch($action){
         case "enregistrer" : 
-            if (enregistrer($id_clients, $id_articles, $quantite, $date) > 0){
+            if (enregistrer($id_clients, $id_articles, $quantite, $date, $user) > 0){
                 header("location : ../achat/achat.php");
             }
           exit();
@@ -20,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     }
 
 }
- function  enregistrer($id_clients, $id_articles, $quantite, $date){
+ function  enregistrer($id_clients, $id_articles, $quantite, $date, $user){
      $etat = 0;
      //etablir la connexion
-     $conn = mysqli_connect('localhost', 'root', '', 'projet');
+     $conn = mysqli_connect('localhost', $user, $user, 'projet');
      //preparer la requete d'insertion
      $sql = "INSERT INTO 'achats'('id_clients', 'id_articles', 'quantite', 'date') VALUES('{$id_clients}','{$id_articles}', '{$quantite}', '{$date}')"; 
      //passer la requete sql

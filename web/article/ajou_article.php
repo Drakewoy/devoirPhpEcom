@@ -11,7 +11,7 @@
     <fieldset>
 
         <legend>Ajouter Un Article</legend>
-        <form action="http://localhost/programs/devoirPhpEcom/web/controlleur/articleServeur.php" method="post">
+        <form action="../controlleur/articleServeur.php" method="post">
             <input type="hidden" name="action" value="enregistrer">
             <label for="nom">Nom</label>
             <input type="text" name="nom" id="nom"><br><br>

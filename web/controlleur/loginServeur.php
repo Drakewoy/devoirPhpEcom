@@ -46,13 +46,13 @@ function login($username, $password)
     $connection = new Conn($username, $password);
     $userRole = $connection->connecter();
     if ($userRole == 'vendeur') {
-        $_SESSION['user'] = $username;
-        header("location: v_serveur.php");
+        $_SESSION['username'] = $username;
+        header("location:  v_serveur.php");
     } elseif ($userRole == 'comptable') {
         $_SESSION['user'] = $username;
         header("location: c_comp.php");
     } elseif ($userRole == 'default') {
-        $_SESSION['user'] = $username;
+        $_SESSION['username'] = $username;
         header("location: ../index.php");
     } elseif ($userRole == 'eA') {
         $erreur = "Nom d'utilisation ou Mot de pass invalide";
