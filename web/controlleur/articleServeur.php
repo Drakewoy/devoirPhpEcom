@@ -9,7 +9,7 @@ if (isset($_POST['nom'])) {
 if (isset($_POST['description'])) {
     $description = $_POST['description'];
 }
-if ($_POST['prix']) {
+if (isset($_POST['prix'])) {
     $prix = $_POST['prix'];
 }
 

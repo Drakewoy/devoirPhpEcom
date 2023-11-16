@@ -8,12 +8,12 @@
 <body>
     <fieldset>
         <legend>Enregistrer Un achat</legend>
-            <form action="http://localhost/programs/devoirPhpEcom/web/controlleur/achatServeur.php" method="post">
+            <form action="../controlleur/achatServeur.php" method="post">
                 <input type="hidden" name="action" value="enregistrer">
-            <label for="id_clients">Id client</label>
-            <input type="number" name="id_clients"><br><br>
-            <label for="id_articles">Id article</label>
-            <input type="number" name="id_articles"><br><br>
+            <label for="id_client">Id client</label>
+            <input type="number" name="id_client"><br><br>
+            <label for="id_article">Id article</label>
+            <input type="number" name="id_article"><br><br>
             <label for="quantite">Quantite</label>
             <input type="number" name="quantite"><br><br>
             <label for="date">Date</label>
