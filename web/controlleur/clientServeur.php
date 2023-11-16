@@ -66,7 +66,7 @@ function enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telep
     //etablir la connexion
     $conn = mysqli_connect('localhost', $user, $user, 'projet');
  //passer la requete d'insertion 
- $sql = "INSERT INTO 'clients'('nom','prenom','adresse','codepostal','ville','pays','telephone') VALUES( '{$nom}', '{$prenom}', '{$adresse}', '{$codepostal}', '{$ville}', '{$pays}', '{$telephone}')";
+ $sql = "INSERT INTO `clients`(`nom`,`prenom`,`adresse`,`codepostal`,`ville`,`pays`,`telephone`) VALUES( '{$nom}', '{$prenom}', '{$adresse}', '{$codepostal}', '{$ville}', '{$pays}', '{$telephone}')";
  // passer la requete
  $conn->query($sql);
 $etat = 1;

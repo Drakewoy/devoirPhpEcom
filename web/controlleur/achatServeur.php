@@ -26,16 +26,20 @@ if (isset($_GET['page']) && isset($_GET['dir'])) {
     $dir = $_GET['dir'];
 }
 
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET'){
-    if(lister()>0){
-    header("location: ../achat/achat.php");
+    if(lister($user)>0){
+        header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
     }
 }elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
     $action = $_POST['action'];
     switch($action){
         case "enregistrer" : 
-            if (enregistrer($id_client, $id_article, $quantite, $date) > 0){
-                header("location: ../achat/achat.php");
+            if (enregistrer($id_client, $id_article, $quantite, $date, $user) > 0){
+                header("location: ../vendeur/vendeur.php?page=ajou_achat&dir=achat");
             }
         exit();
           case "modifier":;
@@ -43,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     }
 
 }
- function  enregistrer($id_client, $id_article, $quantite, $date){
+ function  enregistrer($id_client, $id_article, $quantite, $date, $user){
      $etat = 0;
      //etablir la connexion
      $conn = mysqli_connect('localhost', $user, $user, 'projet');
@@ -57,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
      return $etat;
  }
 
- // La methode de l'enregistrement
-function lister(){
+ // La methode d'affichage'
+function lister($user){
     $etat = 0;
     // Etablir la connection
-    $conn = mysqli_connect('localhost', 'root', '', 'projet');
+    $conn = mysqli_connect('localhost', $user, $user, 'projet');
     // preparer la requete 
     $sql = "SELECT * FROM `achats`";
     // passer la requete
@@ -74,4 +78,6 @@ function lister(){
     $conn->close();
     return $etat;
 }
+
+
 

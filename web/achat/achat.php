@@ -15,18 +15,20 @@
             <th>quantite</th>
             <th>date</th>
         </tr>
-        <tr>
-            <?php
-            session_start();
-            if (isset($_SESSION['listAchat'])) {
-                foreach ($_SESSION['listAchat'] as $row) {
-                    echo "<td>".$row['id_achat']."</td>";
-                    echo "<td>".$row['id_client']."</td>";
-                    echo "<td>".$row['id_article']."</td>";
-                    echo "<td>".$row['quantite']."</td>";
-                    echo "<td>".$row['date']."</td>";
-                }
+
+        <?php
+        session_start();
+        if (isset($_SESSION['listAchat'])) {
+            foreach ($_SESSION['listAchat'] as $row) {
+                echo " <tr>";
+                echo "<td>" . $row['id_achat'] . "</td>";
+                echo "<td>" . $row['id_client'] . "</td>";
+                echo "<td>" . $row['id_article'] . "</td>";
+                echo "<td>" . $row['quantite'] . "</td>";
+                echo "<td>" . $row['date'] . "</td>";
+                echo  "</tr>";
             }
-            ?>
+        }
+        ?>
         </tr>
     </table>

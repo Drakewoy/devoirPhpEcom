@@ -29,7 +29,7 @@
                 <h1>Consultation</h1>
                 <ul>
                     <li><a href="../controlleur/clientServeur.php?page=client&dir=client">Clients</a></li>
-                    <li><a href="vendeur.php?page=achat&dir=achat">Achats</a></li>
+                    <li><a href="../controlleur/achatServeur.php?page=achat&dir=achat">Achats</a></li>
                     <li><a href="../controlleur/articleServeur.php?page=article&dir=article">Articles</a></li>
                 </ul>
             </div>
