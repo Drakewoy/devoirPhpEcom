@@ -34,15 +34,25 @@ if (isset($_POST['telephone'])){
 $telephone = $_POST['telephone'];
 }
 
+if (isset($_SESSION['user'])) {
+  $user = $_SESSION['user'];
+}
+
+if (isset($_GET['page']) && isset($_GET['dir'])) {
+  $page = $_GET['page'];
+  $dir = $_GET['dir'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET'){
-  lister();
-  header("location: ../client/client.php");
+  lister($user);
+  header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+
 } elseif ($_SERVER['REQUEST_METHOD'] ==='POST'){
     $action = $_POST['action'];
     switch($action){
         case "enregistrer":
-          if( enregistrer($numero, $nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone) > 0 ){
-            header("location : ../client/client.php");
+          if( enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone, $user) > 0 ){
+           header("location: ../vendeur/vendeur.php?page=ajout_client&dir=client");
           }
             exit();
             case "modifier":;
@@ -51,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 }
 
-function enregistrer($numero, $nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone){
+function enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone, $user){
  $etat = 0;
     //etablir la connexion
     $conn = mysqli_connect('localhost', $user, $user, 'projet');
  //passer la requete d'insertion 
- $sql = "INSERT INTO 'clients'('numero','nom','prenom','adresse','codepostal','ville','pays','telephone') VALUES('{$numero}', '{$nom}', '{$prenom}', '{$adresse}', '{$codepostal}', '{$ville}', '{$pays}', '{$telephone}')";
+ $sql = "INSERT INTO 'clients'('nom','prenom','adresse','codepostal','ville','pays','telephone') VALUES( '{$nom}', '{$prenom}', '{$adresse}', '{$codepostal}', '{$ville}', '{$pays}', '{$telephone}')";
  // passer la requete
  $conn->query($sql);
 $etat = 1;
@@ -66,17 +76,20 @@ return $etat;
 }
 
 // La methode de l'enregistrement
-function lister()
+function lister($user)
 {
+  $etat = 0;
     // Etablir la connection
-    $conn = mysqli_connect('localhost', 'root', '', 'projet');
+    $conn = mysqli_connect('localhost', $user, $user, 'projet');
     // preparer la requete 
     $sql = "SELECT * FROM `clients`";
     // passer la requete
     $resultat = $conn->query($sql);
     if ($resultat->num_rows > 0) {
-        $_SESSION['listClients'] = $resultat->fetch_all(MYSQLI_ASSOC);
+      $etat =1;
+        $_SESSION['listClient'] = $resultat->fetch_all(MYSQLI_ASSOC);
     }
     // fermer la connection
     $conn->close();
+    return $etat;
 }

@@ -19,11 +19,12 @@
             <th>Pays</th>
             <th>Telephone</th>
         </tr>
-        <tr>
+        
             <?php
             session_start();
-            if (isset($_SESSION['listClients']) && !empty($_SESSION['listClients'])) {
-                foreach ($_SESSION['listClients'] as $row) {
+            if (isset($_SESSION['listClient']) && !empty($_SESSION['listClient'])) {
+                foreach ($_SESSION['listClient'] as $row) {
+                    echo "<tr>";
                     echo "<td>".$row['numero']."</td>";
                     echo "<td>".$row['nom']."</td>";
                     echo "<td>".$row['prenom']."</td>";
@@ -32,6 +33,7 @@
                     echo "<td>".$row['ville']."</td>";
                     echo "<td>".$row['pays']."</td>";
                     echo "<td>".$row['telephone']."</td>";
+                    echo "</tr>";
                 }
             }
             ?>

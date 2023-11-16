@@ -21,6 +21,11 @@ if (isset($_POST['date'])){
     $date = $_POST['date'];
 }
 
+if (isset($_GET['page']) && isset($_GET['dir'])) {
+    $page = $_GET['page'];
+    $dir = $_GET['dir'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     if(lister()>0){
     header("location: ../achat/achat.php");
