@@ -30,6 +30,7 @@ class Conn
                 $row = $resultat->fetch_assoc();
                 $this->username = $row['nom'];
                 $role = $row['role'];
+                $_SESSION['user']=$role;
                 // fermer la connection par default
                 $conn->close();
                 // etablir une nouvelle connection en fonction du role

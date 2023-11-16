@@ -11,7 +11,8 @@
 <body>
     <div class="conteneur">
         <!-- nav -->
-        <div class="contenu">
+        <?php  include("partiel/header.html");?>
+       <div class="contenu">
             <div class="prod">
                 <div class="imaj">
                     <img src="images/fire.jfif" alt="">
