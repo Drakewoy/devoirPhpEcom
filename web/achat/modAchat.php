@@ -21,6 +21,7 @@
                 <th>Nom_articles</th>
                 <th>Prix / Unit</th>
                 <th>Total</th>
+                <th>Action</th>
             </tr>
 
             <?php
@@ -37,6 +38,7 @@
                     echo "<td>" . $row['nomA'] . "</td>";
                     echo "<td>" . $row['prix'] . "</td>";
                     echo "<td>" . $row['total'] . "</td>";
+                    echo "<td><a href='../controlleur/achatServeur.php?id={$row['id_achat']}&action=modifier'> Modifier </a></td>";
                     echo  "</tr>";
                 }
             }
