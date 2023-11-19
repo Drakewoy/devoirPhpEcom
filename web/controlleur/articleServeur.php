@@ -3,6 +3,14 @@ session_start();
 $nom;
 $description;
 $prix;
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+}
+
 if (isset($_POST['nom'])) {
     $nom = $_POST['nom'];
 }
@@ -21,12 +29,21 @@ if (isset($_POST['prix'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-    if (lister($user) > 0) {
-        header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+    $action = $_GET['action'];
+    if ($action == 'enregistrer') {
+        header("location: ../vendeur/vendeur.php?page=ajou_article&dir=article");
+    } elseif ($action == 'modifier') {
+        if (recherche($id, $user) > 0) {
+            header("location: ../vendeur/vendeur.php?page=mod_article&dir=article");
+        }
+    } else {
+        if (lister($user) > 0) {
+            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+        } else {
+            unset($_SESSION['listArticle']);
+            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+        }
     }
-    // echo "".$user;
-
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
     switch ($action) {
@@ -36,7 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
 
             exit();
-        case "modifier":;
+        case "modifier":
+            if (modifier($nom, $description, $prix,  $user, $id) > 0) {
+                lister($user);
+                header("location: ../vendeur/vendeur.php?page=modArticle&dir=article");
+            }
             exit();
     }
 }
@@ -68,10 +89,42 @@ function lister($user)
     // passer la requete
     $resultat = $conn->query($sql);
     if ($resultat->num_rows > 0) {
-        $_SESSION['listAtircle'] = $resultat->fetch_all(MYSQLI_ASSOC);
+        $_SESSION['listArticle'] = $resultat->fetch_all(MYSQLI_ASSOC);
         $etat = 1;
     }
     return $etat;
     // fermer la connection
     $conn->close();
+}
+
+// La methode de la modification
+function  modifier($nom, $description, $prix,  $user, $id)
+{
+    $etat = 0;
+    //etablir la connexion
+    $conn = mysqli_connect('localhost', $user, $user, 'projet');
+    //preparer la mise a jour
+    $sql = "UPDATE `articles` SET `nom` = '{$nom}', `description`= '{$description}', `prix`='{$prix}' WHERE reference = {$id}";
+    //passer la requete sql
+    $conn->query($sql);
+    $etat = 1;
+    //fermer la connexion
+    $conn->close();
+    return $etat;
+}
+
+// la methode recherche pour proceder a la modification
+function recherche($id, $user)
+{
+    $etat = 0;
+    // etablir la connection
+    $conn = $conn = mysqli_connect('localhost', $user, $user, 'projet');
+
+    // la requete
+    $sql = "SELECT * FROM `articles` WHERE reference = {$id}";
+    $resultat = $conn->query($sql);
+    $_SESSION['res_rechArt'] = $resultat->fetch_assoc();
+    $etat = 1;
+    $conn->close();
+    return $etat;
 }
