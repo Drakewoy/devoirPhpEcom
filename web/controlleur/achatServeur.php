@@ -1,7 +1,5 @@
 <?php
 session_start();
-<<<<<<< HEAD
-=======
 $id_client;
 $id_article;
 $quantite;
@@ -29,35 +27,11 @@ if (isset($_POST['quantite'])) {
 if (isset($_POST['date'])) {
     $date = $_POST['date'];
 }
->>>>>>> 8bd27a014349a99c37ed5e537031d4df24a9b5d3
 
 if (isset($_GET['page']) && isset($_GET['dir'])) {
     $page = $_GET['page'];
     $dir = $_GET['dir'];
 }
-<<<<<<< HEAD
-$id_clients = $_POST['id_clients'];
-$id_articles = $_POST['id_articles'];
-$quantite = $_POST['quantite'];
-$date = $_POST['date'];
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET'){
-    if(lister()>0){
-    header("location: ../achat/achat.php");
-    }
-}elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $action = $_POST['action'];
-    switch($action){
-        case "enregistrer" : 
-            if (enregistrer($id_clients, $id_articles, $quantite, $date, $user) > 0){
-                header("location : ../achat/achat.php");
-            }
-        exit();
-          case "modifier":;
-        exit();  
-    }
-=======
->>>>>>> 8bd27a014349a99c37ed5e537031d4df24a9b5d3
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
@@ -65,22 +39,6 @@ if (isset($_SESSION['user'])) {
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
-<<<<<<< HEAD
- function  enregistrer($id_clients, $id_articles, $quantite, $date, $user){
-     $etat = 0;
-     //etablir la connexion
-     $conn = mysqli_connect('localhost', $user, $user, 'projet');
-     //preparer la requete d'insertion
-     $sql = "INSERT INTO `achats` (`id_client`, `id_article`, `quantite`,`date`) VALUES('{$id_client}','{$id_article}', '{$quantite}', '{$date}')"; 
-     //passer la requete sql
-     $conn->query($sql);
-     $etat = 1;
-     //fermer la connexion
-     $conn->close();  
-     return $etat;
- }
-=======
->>>>>>> 8bd27a014349a99c37ed5e537031d4df24a9b5d3
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action == 'enregistrer') {
