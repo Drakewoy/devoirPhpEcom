@@ -1,42 +1,27 @@
 <?php
 session_start();
-$numero;
-$nom;
-$prenom;
-$adresse;
-$codepostal;
-$ville;
-$pays;
-$telephone;
 
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-}
-if (isset($_POST['id'])) {
-  $id = $_POST['id'];
+if (isset($_GET['page']) && isset($_GET['dir'])) {
+  $page = $_GET['page'];
+  $dir = $_GET['dir'];
 }
 
-if (isset($_POST['numero'])) {
-  $numero = $_POST['numero'];
-}
-if (isset($_POST['nom'])) {
-  $nom = $_POST['nom'];
-}
-if (isset($_POST['prenom'])) {
-  $prenom = $_POST['prenom'];
-}
 if (isset($_POST['adresse'])) {
   $adresse = $_POST['adresse'];
 }
+
 if (isset($_POST['codepostal'])) {
   $codepostal = $_POST['codepostal'];
 }
+
 if (isset($_POST['ville'])) {
   $ville = $_POST['ville'];
 }
+
 if (isset($_POST['pays'])) {
   $pays = $_POST['pays'];
 }
+
 if (isset($_POST['telephone'])) {
   $telephone = $_POST['telephone'];
 }
@@ -45,10 +30,6 @@ if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
 }
 
-if (isset($_GET['page']) && isset($_GET['dir'])) {
-  $page = $_GET['page'];
-  $dir = $_GET['dir'];
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $action = $_GET['action'];
@@ -103,7 +84,9 @@ function enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telep
   return $etat;
 }
 
-// La methode de l'enregistrement
+
+
+// La methode d'affichage
 function lister($user)
 {
   $etat = 0;
