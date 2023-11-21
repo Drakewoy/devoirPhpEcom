@@ -12,7 +12,8 @@
     <div class="page">
         <fieldset>
             <legend>Moidifier Un Client</legend>
-            <form action="../controlleur/clientServeur.php?action=modifier" method="post">
+            <form action="../controlleur/clientServeur.php" method="post">
+                <input type="hidden" name="action" value="modifier">
                 <?php
                 session_start();
                 $numero;

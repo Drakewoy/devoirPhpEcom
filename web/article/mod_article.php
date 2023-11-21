@@ -10,13 +10,19 @@
 
 <body>
     <div class="page">
+    <?php
+        session_start();
+        if (isset($_SESSION['error_message'])) {
+            echo "".$_SESSION['error_message'];
+        }
+        ?>
         <fieldset>
 
             <legend>Modifier Un Article</legend>
             <form action="../controlleur/articleServeur.php" method="post">
                 <input type="hidden" name="action" value="modifier">
                 <?php
-                session_start();
+                // session_start();
                 $reference;
                 $nom;
                 $description;

@@ -6,11 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>enregistrer Article</title>
-    
+
 </head>
 
 <body>
     <div class="page">
+        <?php
+        session_start();
+        if (isset($_SESSION['error_message'])) {
+            echo "".$_SESSION['error_message'];
+        }
+        ?>
         <fieldset>
 
             <legend>Ajouter Un Article</legend>

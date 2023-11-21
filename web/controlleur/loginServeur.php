@@ -47,10 +47,10 @@ function login($username, $password)
     $userRole = $connection->connecter();
     if ($userRole == 'vendeur') {
         $_SESSION['username'] = $username;
-        header("location:  v_serveur.php");
+        header("location:  ../admin/admin.php");
     } elseif ($userRole == 'comptable') {
-        $_SESSION['user'] = $username;
-        header("location: c_comp.php");
+        $_SESSION['username'] = $username;
+        header("location: ../admin/admin.php");
     } elseif ($userRole == 'default') {
         $_SESSION['username'] = $username;
         header("location: ../index.php");

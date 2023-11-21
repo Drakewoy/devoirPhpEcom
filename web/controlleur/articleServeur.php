@@ -31,17 +31,17 @@ if (isset($_POST['prix'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_GET['action'];
     if ($action == 'enregistrer') {
-        header("location: ../vendeur/vendeur.php?page=ajou_article&dir=article");
+        header("location: ../admin/admin.php?page=ajou_article&dir=article");
     } elseif ($action == 'modifier') {
         if (recherche($id, $user) > 0) {
-            header("location: ../vendeur/vendeur.php?page=mod_article&dir=article");
+            header("location: ../admin/admin.php?page=mod_article&dir=article");
         }
     } else {
         if (lister($user) > 0) {
-            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+            header("location: ../admin/admin.php?page=$page&dir=$dir");
         } else {
             unset($_SESSION['listArticle']);
-            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+            header("location: ../admin/admin.php?page=$page&dir=$dir");
         }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -49,14 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     switch ($action) {
         case "enregistrer":
             if (enregistrer($nom, $description, $prix, $user) > 0) {
-                header("location: ../vendeur/vendeur.php?page=ajou_article&dir=article");
+                header("location: ../admin/admin.php?page=ajou_article&dir=article");
+            } else {
+                echo "";
             }
 
             exit();
         case "modifier":
             if (modifier($nom, $description, $prix,  $user, $id) > 0) {
                 lister($user);
-                header("location: ../vendeur/vendeur.php?page=modArticle&dir=article");
+                header("location: ../admin/admin.php?page=modArticle&dir=article");
+            } else {
+                header("location: ../admin/admin.php?page=mod_article&dir=article");
             }
             exit();
     }
@@ -66,15 +70,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 function enregistrer($nom, $description, $prix, $user)
 {
     $etat = 0;
-    // etablir la connection 
-    $conn = mysqli_connect('localhost', $user, $user, 'projet');
-    // preparer la requete
-    $sql = "INSERT INTO `articles` (`nom`, `description`, `prix`) VALUES ('{$nom}', '{$description}', '{$prix}')";
-    // passer la requete
-    $conn->query($sql);
-    $etat = 1;
-    // fermer la connection
-    $conn->close();
+    try {
+        // etablir la connection 
+        $conn = mysqli_connect('localhost', $user, $user, 'projet');
+        // preparer la requete
+        $sql = "INSERT INTO `articles` (`nom`, `description`, `prix`) VALUES ('{$nom}', '{$description}', '{$prix}')";
+        // passer la requete
+        $conn->query($sql);
+        $etat = 1;
+        // fermer la connection
+        $conn->close();
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['error_message'] = "Vous n'avez pas de droit d'insertion!!!";
+        header("location: ../admin/admin.php?page=ajou_article&dir=article");
+    }
     return $etat;
 }
 
@@ -101,15 +110,19 @@ function lister($user)
 function  modifier($nom, $description, $prix,  $user, $id)
 {
     $etat = 0;
-    //etablir la connexion
-    $conn = mysqli_connect('localhost', $user, $user, 'projet');
-    //preparer la mise a jour
-    $sql = "UPDATE `articles` SET `nom` = '{$nom}', `description`= '{$description}', `prix`='{$prix}' WHERE reference = {$id}";
-    //passer la requete sql
-    $conn->query($sql);
-    $etat = 1;
-    //fermer la connexion
-    $conn->close();
+    try {
+        //etablir la connexion
+        $conn = mysqli_connect('localhost', $user, $user, 'projet');
+        //preparer la mise a jour
+        $sql = "UPDATE `articles` SET `nom` = '{$nom}', `description`= '{$description}', `prix`='{$prix}' WHERE reference = {$id}";
+        //passer la requete sql
+        $conn->query($sql);
+        $etat = 1;
+        //fermer la connexion
+        $conn->close();
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['error_message'] = "Vous n'avez pas de droit a la mise a jour!!!";
+    }
     return $etat;
 }
 

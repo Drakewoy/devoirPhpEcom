@@ -9,28 +9,27 @@
 
 <body>
     <div class="page">
-        <fieldset>
-            <legend>Enregistrer Un Client</legend>
+        
+            <h1>Enregistrer Un Client</h1>
             <form action="../controlleur/clientServeur.php?" method="post">
                 <input type="hidden" name="action" value="enregistrer">
                 <label for="nom">Nom</label>
-                <input type="text" name="nom"><br><br>
+                <input type="text" name="nom">
                 <label for="prenom">Prenom</label>
-                <input type="text" name="prenom"><br><br>
+                <input type="text" name="prenom">
                 <label for="adresse">Adresse</label>
-                <textarea name="adresse" id="adresse" cols="30" rows="10"></textarea><br><br>
+                <textarea name="adresse" id="adresse" cols="30" rows="10"></textarea>
                 <label for="codepostal">Code postal</label>
-                <input type="text" name="codepostal"><br><br>
+                <input type="text" name="codepostal">
                 <label for="ville">Ville</label>
-                <input type="text" name="ville"><br><br>
+                <input type="text" name="ville">
                 <label for="pays">Pays</label>
-                <input type="text" name="pays"><br><br>
+                <input type="text" name="pays">
                 <label for="telephone">Telephone</label>
-                <input type="text" name="telephone"><br><br>
+                <input type="text" name="telephone">
                 <input type="submit" value="Enregistrer">
             </form>
 
-        </fieldset>
     </div>
 </body>
 

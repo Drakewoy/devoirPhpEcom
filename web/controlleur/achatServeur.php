@@ -36,38 +36,38 @@ if (isset($_GET['page']) && isset($_GET['dir'])) {
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
-}
+// if (isset($_GET['action'])) {
+//     $action = $_GET['action'];
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action == 'enregistrer') {
-        header("location: ../vendeur/vendeur.php?page=ajou_achat&dir=achat");
-
+        header("location: ../admin/admin.php?page=ajou_achat&dir=achat");
     } elseif ($action == 'modifier') {
         if (recherche($id, $user) > 0) {
-            header("location: ../vendeur/vendeur.php?page=mod_achat&dir=achat");
+            header("location: ../admin/admin.php?page=mod_achat&dir=achat");
         }
     } else {
         if (lister($user) > 0) {
-            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+            header("location: ../admin/admin.php?page=$page&dir=$dir");
         } else {
             unset($_SESSION['listAchat']);
-            header("location: ../vendeur/vendeur.php?page=$page&dir=$dir");
+            header("location: ../admin/admin.php?page=$page&dir=$dir");
         }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
     switch ($action) {
         case "enregistrer":
+            lister($user);
             if (enregistrer($id_client, $id_article, $quantite, $date, $user) > 0) {
-                header("location: ../vendeur/vendeur.php?page=ajou_achat&dir=achat");
+                header("location: ../admin/admin.php?page=ajou_achat&dir=achat");
             }
             exit();
         case "modifier":
             if (modifier($id_client, $id_article, $quantite, $date, $user, $id) > 0) {
                 lister($user);
-                header("location: ../vendeur/vendeur.php?page=modAchat&dir=achat");
+                header("location: ../admin/admin.php?page=modAchat&dir=achat");
             }
 
             exit();
@@ -78,15 +78,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 function  enregistrer($id_client, $id_article, $quantite, $date, $user)
 {
     $etat = 0;
-    //etablir la connexion
-    $conn = mysqli_connect('localhost', $user, $user, 'projet');
-    //preparer la requete d'insertion
-    $sql = "INSERT INTO `achats` (`id_client`, `id_article`, `quantite`,`date`) VALUES('{$id_client}','{$id_article}', '{$quantite}', '{$date}')";
-    //passer la requete sql
-    $conn->query($sql);
-    $etat = 1;
-    //fermer la connexion
-    $conn->close();
+    try {
+        //etablir la connexion
+
+        $conn = mysqli_connect('localhost', $user, $user, 'projet');
+        //preparer la requete d'insertion
+        $sql = "INSERT INTO `achats` (`id_client`, `id_article`, `quantite`,`date`) VALUES('{$id_client}','{$id_article}', '{$quantite}', '{$date}')";
+        //passer la requete sql
+        $conn->query($sql);
+        $etat = 1;
+        //fermer la connexion
+        $conn->close();
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['error_message'] = "Vous n'avez pas de droit d'insertion!!!";
+        error_log("Error: " . $e->getMessage());
+    }
     return $etat;
 }
 
@@ -114,15 +120,20 @@ function lister($user)
 function  modifier($id_client, $id_article, $quantite, $date, $user, $id)
 {
     $etat = 0;
-    //etablir la connexion
-    $conn = mysqli_connect('localhost', $user, $user, 'projet');
-    //preparer la mise a jour
-    $sql = "UPDATE `achats` SET `id_client` = {$id_client}, `id_article`= {$id_article}, `quantite`={$quantite},`date`='{$date}' WHERE id_achat = {$id}";
-    //passer la requete sql
-    $conn->query($sql);
-    $etat = 1;
-    //fermer la connexion
-    $conn->close();
+    try {
+        //etablir la connexion
+        $conn = mysqli_connect('localhost', $user, $user, 'projet');
+        //preparer la mise a jour
+        $sql = "UPDATE `achats` SET `id_client` = {$id_client}, `id_article`= {$id_article}, `quantite`={$quantite},`date`='{$date}' WHERE id_achat = {$id}";
+        //passer la requete sql
+        $conn->query($sql);
+        $etat = 1;
+        //fermer la connexion
+        $conn->close();
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['error_message'] = "Vous n'avez pas de droit a la mise a jourF!!!";
+        error_log("Error: " . $e->getMessage());
+    }
     return $etat;
 }
 // la methode recherche pour proceder a la modification
