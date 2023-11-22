@@ -10,12 +10,16 @@
 
 <body>
     <div class="page">
+        <?php
+        if (isset($_SESSION['error_message'])) {
+            echo "<p style='color:red; font-size: 29px;'> Utilisateur : " . $_SESSION['error_message'] . "</p>";
+        } ?>
         <fieldset>
             <legend>Moidifier Un Client</legend>
             <form action="../controlleur/clientServeur.php" method="post">
                 <input type="hidden" name="action" value="modifier">
                 <?php
-              
+
                 $numero;
                 $nom;
                 $prenom;

@@ -13,9 +13,9 @@
     <div class="page">
         <?php
         if (isset($_SESSION['error_message'])) {
-            echo "" . $_SESSION['error_message'];
-        }
-        ?>
+            echo "<p style='color:red; font-size: 29px;'> Utilisateur : " . $_SESSION['error_message'] . "</p>";
+        } ?>
+        
         <fieldset>
 
             <legend>Ajouter Un Article</legend>

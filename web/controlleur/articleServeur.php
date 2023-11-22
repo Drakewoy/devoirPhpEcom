@@ -31,9 +31,11 @@ if (isset($_POST['prix'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_GET['action'];
     if ($action == 'enregistrer') {
+        unset($_SESSION['error_message']);
         header("location: ../admin/admin.php?page=ajou_article&dir=article");
     } elseif ($action == 'modifier') {
         if (recherche($id, $user) > 0) {
+            unset($_SESSION['error_message']);
             header("location: ../admin/admin.php?page=mod_article&dir=article");
         }
     } else {
@@ -52,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (enregistrer($nom, $description, $prix, $user) > 0) {
                 header("location: ../admin/admin.php?page=ajou_article&dir=article");
             } else {
-                echo "";
+                header("location: ../admin/admin.php?page=ajou_article&dir=article");
+
             }
 
             exit();

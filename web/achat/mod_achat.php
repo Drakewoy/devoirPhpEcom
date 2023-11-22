@@ -10,6 +10,10 @@
 
 <body>
     <div class="page">
+        <?php
+        if (isset($_SESSION['error_message'])) {
+            echo "<p style='color:red; font-size: 29px;'> Utilisateur : " . $_SESSION['error_message'] . "</p>";
+        } ?>
         <fieldset>
             <legend>Modifier Un achat</legend>
             <form action="../controlleur/achatServeur.php" method="post">

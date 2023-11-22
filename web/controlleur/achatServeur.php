@@ -36,15 +36,17 @@ if (isset($_GET['page']) && isset($_GET['dir'])) {
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
-// if (isset($_GET['action'])) {
-//     $action = $_GET['action'];
-// }
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action == 'enregistrer') {
+        unset($_SESSION['error_message']);
         header("location: ../admin/admin.php?page=ajou_achat&dir=achat");
     } elseif ($action == 'modifier') {
         if (recherche($id, $user) > 0) {
+            unset($_SESSION['error_message']);
             header("location: ../admin/admin.php?page=mod_achat&dir=achat");
         }
     } else {
@@ -62,12 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             lister($user);
             if (enregistrer($id_client, $id_article, $quantite, $date, $user) > 0) {
                 header("location: ../admin/admin.php?page=ajou_achat&dir=achat");
+            } else {
+                header("location: ../admin/admin.php?page=ajou_achat&dir=achat");
             }
             exit();
         case "modifier":
             if (modifier($id_client, $id_article, $quantite, $date, $user, $id) > 0) {
                 lister($user);
                 header("location: ../admin/admin.php?page=modAchat&dir=achat");
+            }else{
+                header("location: ../admin/admin.php?page=mod_achat&dir=achat");
+
             }
 
             exit();

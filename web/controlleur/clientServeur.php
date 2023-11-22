@@ -49,9 +49,11 @@ if (isset($_SESSION['user'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $action = $_GET['action'];
   if ($action == 'enregistrer') {
+    unset($_SESSION['error_message']);
     header("location: ../admin/admin.php?page=ajou_client&dir=client");
   } elseif ($action == "modifier") {
     if (recherche($id, $user) > 0) {
+      unset($_SESSION['error_message']);
       header("location: ../admin/admin.php?page=mod_client&dir=client");
     }
   } else {
@@ -67,13 +69,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   switch ($action) {
     case "enregistrer":
       if (enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone, $user) > 0) {
-        header("location: ../admin/admin.php?page=ajout_client&dir=client");
+        header("location: ../admin/admin.php?page=ajou_client&dir=client");
+      } else {
+        header("location: ../admin/admin.php?page=ajou_client&dir=client");
       }
       exit();
     case "modifier":
       if (modifier($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telephone, $user, $id) > 0) {
         lister($user);
         header("location: ../admin/admin.php?page=modClient&dir=client");
+      }else{
+        header("location: ../admin/admin.php?page=mod_client&dir=client");
+
       };
       exit();
   }
@@ -94,7 +101,7 @@ function enregistrer($nom, $prenom, $adresse, $codepostal, $ville, $pays, $telep
     $conn->close();
   } catch (mysqli_sql_exception $e) {
     $_SESSION['error_message'] = "Vous n'avez pas de droit d'insertion!!!";
-    error_log("Error: " . $e->getMessage());
+    // header("location: ../admin/admin.php?page=ajout_client&dir=client");
   }
   return $etat;
 }
