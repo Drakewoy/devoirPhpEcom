@@ -24,7 +24,6 @@
             </tr>
 
             <?php
-            session_start();
             if (isset($_SESSION['listAchat'])) {
                 foreach ($_SESSION['listAchat'] as $row) {
                     echo " <tr>";

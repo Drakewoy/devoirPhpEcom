@@ -15,7 +15,6 @@
             <form action="../controlleur/achatServeur.php" method="post">
                 <input type="hidden" name="action" value="modifier">
                 <?php
-                session_start();
                 // variable 
                 $id_achat = null;
                 $id_client = null;

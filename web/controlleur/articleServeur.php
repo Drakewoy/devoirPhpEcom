@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     } else {
         if (lister($user) > 0) {
+            unset($_SESSION['error_message']);
             header("location: ../admin/admin.php?page=$page&dir=$dir");
         } else {
             unset($_SESSION['listArticle']);

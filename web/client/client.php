@@ -23,7 +23,7 @@
             </tr>
 
             <?php
-            session_start();
+         
             if (isset($_SESSION['listClient']) && !empty($_SESSION['listClient'])) {
                 foreach ($_SESSION['listClient'] as $row) {
                     echo "<tr>";

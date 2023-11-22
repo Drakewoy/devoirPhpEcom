@@ -15,7 +15,7 @@
             <form action="../controlleur/clientServeur.php" method="post">
                 <input type="hidden" name="action" value="modifier">
                 <?php
-                session_start();
+              
                 $numero;
                 $nom;
                 $prenom;

@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <?php
-                session_start();
+              
                 if (isset($_SESSION['listArticle'])) {
                     foreach ($_SESSION['listArticle'] as $row) {
                         echo " <tr>";

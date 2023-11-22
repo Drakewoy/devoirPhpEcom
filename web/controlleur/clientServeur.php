@@ -9,6 +9,21 @@ if (isset($_GET['page']) && isset($_GET['dir'])) {
 if (isset($_POST['adresse'])) {
   $adresse = $_POST['adresse'];
 }
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+}
+
+if (isset($_POST['id'])) {
+  $id = $_POST['id'];
+}
+
+if (isset($_POST['nom'])) {
+  $nom = $_POST['nom'];
+}
+
+if (isset($_POST['prenom'])) {
+  $prenom = $_POST['prenom'];
+}
 
 if (isset($_POST['codepostal'])) {
   $codepostal = $_POST['codepostal'];
